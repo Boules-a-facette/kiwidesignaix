@@ -130,4 +130,34 @@ par le site lui-même.
   la matière première de la reprise et l'archive FTP.
 - Le DNS et la redirection `www` vers le domaine nu.
 
+## Publication
+
+- Dépôt : https://github.com/Boules-a-facette/kiwidesignaix (public, branche `main`), créé le
+  29 septembre 2026. GitHub Pages sert la racine de `main`.
+- **Domaine principal : `kiwidesignaix.com` (domaine nu, HTTPS).** C'est celui que le WordPress
+  d'origine déclarait (`siteurl` et `home`) et celui que désignaient ses balises `canonical` : c'est
+  l'hôte indexé, on le conserve.
+- `www.kiwidesignaix.com` redirige en **301** vers le domaine nu, à l'identique de ce que faisait
+  l'original depuis juin 2013.
+- Certificat Let's Encrypt émis le 29 septembre 2026, valide jusqu'au 28 décembre 2026, couvrant
+  **les deux hôtes** (`kiwidesignaix.com` et `www.kiwidesignaix.com`). HTTPS forcé.
+- Vérifié après bascule, en résolvant l'edge GitHub explicitement (`curl --resolve`, jamais par le
+  nom seul : le résolveur local garde l'ancienne IP d'OVH en cache pendant une heure) : les deux
+  pages répondent 200, `www` redirige en 301 vers le domaine nu en conservant le chemin, `http`
+  redirige vers `https`, et une URL inconnue renvoie notre `404.html`.
+- Le WordPress d'origine reste en place sur OVH, intact : aucune écriture n'a été faite dessus.
+  Son extinction est une étape ultérieure, après validation par la cliente.
+- Point restant : le domaine n'est pas encore *vérifié* auprès de GitHub
+  (`_github-pages-challenge-Boules-a-facette`) ; sans cet enregistrement TXT, un tiers pourrait
+  revendiquer le domaine dans ses propres réglages Pages. À ajouter dans la zone OVH, sans toucher
+  aux MX ni au SPF.
+
+## Ce que l'historique dit de l'hôte à conserver
+
+Relevé dans le dépôt `migration_mallory` (fichier `audits/kiwidesignaix/audit.md`, section
+« L'hôte à garder ») : le site a vécu sur `www.kiwidesignaix.com` de 2012 à mai 2013, puis sur le
+domaine nu depuis juin 2013, avec un 301 permanent de `www` vers le nu — treize ans de redirection,
+et un `canonical` qui a toujours désigné le domaine nu, y compris dans les captures où `www`
+répondait 200.
+
 `VERIFICATION.md` : ce qui a été contrôlé, comment, et ce qui reste à regarder.
